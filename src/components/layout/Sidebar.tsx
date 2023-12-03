@@ -8,6 +8,7 @@ import { BiMoon, BiSun } from "react-icons/bi";
 import {
   PieChart,
   KanbanSquare,
+  ListChecks,
   MessageCircle,
   Users,
   CalendarPlus,
@@ -33,7 +34,7 @@ import {
 export default function Sidebar() {
   const { theme, setTheme } = useTheme();
   const [openCampain, setOpenCampain] = useState(false);
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(true);
 
   function isDark() {
     return theme === "dark";
@@ -44,11 +45,11 @@ export default function Sidebar() {
   }
 
   function handleCloseMenu() {
-    setShowMenu(true);
+    setShowMenu(false);
   }
 
   function handleOpenMenu() {
-    setShowMenu(false);
+    setShowMenu(true);
   }
 
   return (
@@ -64,13 +65,13 @@ export default function Sidebar() {
                 type="button"
                 className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               ></button>
-              <Link href="/" className="flex ml-2 md:mr-24">
+              <Link href="/atendimentos" className="flex ml-2 md:mr-24">
                 <Image
-                  src="/talk.png"
+                  src="/logo.png"
                   className="h-8 mr-3"
                   alt="coruss Logo"
-                  width={180}
-                  height={60}
+                  width={150}
+                  height={50}
                 />
               </Link>
             </div>
@@ -103,10 +104,10 @@ export default function Sidebar() {
       </nav>
 
       <aside
-        style={{ width: showMenu ? 60 : 250 }}
+        style={{ width: showMenu ? 250 : 60 }}
         id="logo-sidebar"
         className={
-          "fixed  z-40 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+          "fixed  z-40 h-screen pt-12  transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
         }
         aria-label="Sidebar"
       >
@@ -116,37 +117,19 @@ export default function Sidebar() {
               <button className="flex items-center z-50 -pt-5  p-1.5 text-gray-400 rounded cursor-pointer lg:inline hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700">
                 {showMenu ? (
                   <>
-                    <ChevronRight
+                    <ChevronLeft
                       onClick={handleOpenMenu}
                       className="text-sky-600 font-black w-6 h-6"
                     />
                   </>
                 ) : (
-                  <ChevronLeft
+                  <ChevronRight
                     onClick={handleCloseMenu}
                     className="text-sky-600 font-black w-6 h-6"
                   />
                 )}
               </button>
             </div>
-            <li>
-              <Link
-                href="/dashboard"
-                className="flex items-center -mt-3 p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <PieChart className="text-gray-300" />
-                <span className="ml-3">Dashboard</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/kanban"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <KanbanSquare className="text-gray-300" />
-                <span className="flex-1 ml-3 whitespace-nowrap">Kanban</span>
-              </Link>
-            </li>
             <li>
               <Link
                 href="/atendimentos"
@@ -156,8 +139,29 @@ export default function Sidebar() {
                 <span className="flex-1 ml-3 whitespace-nowrap">
                   Atendimentos
                 </span>
-                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded dark:bg-blue-900 dark:text-blue-300">
                   3
+                </span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/kanban"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                <KanbanSquare className="text-gray-300" />
+                <span className="flex-1 ml-3 whitespace-nowrap">Crm</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/tarefas"
+                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                <ListChecks className="text-gray-300" />
+                <span className="flex-1 ml-3 whitespace-nowrap">Tarefas</span>
+                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-red-800 bg-red-100 rounded dark:bg-red-900 dark:text-red-300">
+                  2
                 </span>
               </Link>
             </li>
@@ -210,6 +214,9 @@ export default function Sidebar() {
                 <span className="flex-1 ml-3 whitespace-nowrap">
                   Chat interno
                 </span>
+                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-yellow-800 bg-yellow-100 rounded-full dark:bg-yellow-900 dark:text-yellow-300">
+                  2
+                </span>
               </Link>
             </li>
             <li>
@@ -225,11 +232,26 @@ export default function Sidebar() {
           <hr className="mt-3" />
           <ul className="mt-3">
             <li>
+              <span className="text-xs mb-3">Gerência</span>
+              <Link
+                href="/dashboard"
+                className="flex mt-2 items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+              >
+                <PieChart className="text-gray-300" />
+                <span className="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
+              </Link>
+            </li>
+          </ul>
+          <hr className="mt-3" />
+
+          <ul className="mt-3">
+            <li>
               <li>
+                <span className="text-xs mb-3">Administração</span>
                 <button
                   type="button"
                   onClick={isCampain}
-                  className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+                  className="flex items-center w-full mt-2 p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
                   aria-controls="dropdown-example"
                   data-collapse-toggle="dropdown-example"
                 >
@@ -345,7 +367,7 @@ export default function Sidebar() {
                 </span>
               </Link>
             </li>
-            <li>
+            <li className="mb-20">
               <Link
                 href="/configuracoes"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
